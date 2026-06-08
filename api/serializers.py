@@ -1,10 +1,13 @@
 from rest_framework import serializers
+
 from students.models import Student
 
 
+class StudentSerializer(serializers.ModelSerializer):
+    id = serializers.IntegerField(read_only=True)
 
-class StudentSerializers(serializers.ModelSerializer):
     class Meta:
-        model=Student
-        fields="__all__"
+        model = Student
+        fields = ["id", "students_id", "name", "branch"]
+
     

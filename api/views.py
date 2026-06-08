@@ -1,7 +1,7 @@
 # from django.shortcuts import render
 # from django.http import JsonResponse
 from students.models import Student
-from .serializers import StudentSerializers
+from .serializers import StudentSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.decorators import api_view
@@ -12,10 +12,10 @@ def studentsView(request):
     if request.method=="GET":
         #Get all the data from the student table
         students=Student.objects.all()
-        serializer=StudentSerializers(students, many=True)
+        serializer=StudentSerializer(students, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
     elif request.method=='POST':
-        serializer=StudentSerializers(data=request.data)
+        serializer=StudentSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
